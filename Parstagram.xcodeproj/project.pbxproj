@@ -95,7 +95,6 @@
 				894CBA4627EE505B003DD7D7 /* AppDelegate.swift */,
 				894CBA4827EE505B003DD7D7 /* SceneDelegate.swift */,
 				894CBA4F27EE505C003DD7D7 /* Assets.xcassets */,
-				894CBA5127EE505C003DD7D7 /* LaunchScreen.storyboard */,
 				894CBA5427EE505C003DD7D7 /* Info.plist */,
 			);
 			path = Parstagram;
@@ -123,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				894CBA4C27EE505B003DD7D7 /* Main.storyboard */,
+				894CBA5127EE505C003DD7D7 /* LaunchScreen.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
