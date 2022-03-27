@@ -18,6 +18,9 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        userNameTexField.delegate = self
+        passwordTextField.delegate = self
+        
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
     
@@ -72,8 +75,14 @@ class LoginViewController: UIViewController {
 
 extension LoginViewController: UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        signUpPressed(self)
+        
+        if textField == userNameTexField{
+            textField.resignFirstResponder()
+            passwordTextField.becomeFirstResponder()
+        } else{
+            textField.resignFirstResponder()
+        }
+        
         return true
     }
 }

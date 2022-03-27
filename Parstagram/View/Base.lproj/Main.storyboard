@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fR3-hT-5Yi">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -121,14 +121,14 @@
                                                         <constraint firstAttribute="width" secondItem="cqi-iv-TBf" secondAttribute="height" multiplier="1:1" id="Afl-5c-6xD"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNp-09-JJK">
-                                                    <rect key="frame" x="10" y="420" width="52" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="Author" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNp-09-JJK">
+                                                    <rect key="frame" x="10.000000000000004" y="420" width="51.333333333333343" height="20.333333333333314"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4kf-zq-QJg">
-                                                    <rect key="frame" x="70" y="420" width="74.666666666666686" height="59"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4kf-zq-QJg">
+                                                    <rect key="frame" x="69.333333333333343" y="420" width="314.66666666666663" height="59"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -141,6 +141,7 @@
                                                 <constraint firstItem="cqi-iv-TBf" firstAttribute="top" secondItem="wYC-I0-Hlx" secondAttribute="top" constant="10" id="ICx-fp-1Ci"/>
                                                 <constraint firstItem="4kf-zq-QJg" firstAttribute="bottom" secondItem="wYC-I0-Hlx" secondAttribute="bottomMargin" id="MJZ-6P-Oqv"/>
                                                 <constraint firstItem="4kf-zq-QJg" firstAttribute="top" secondItem="cqi-iv-TBf" secondAttribute="bottom" constant="16" id="NKD-a7-mq9"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="4kf-zq-QJg" secondAttribute="trailing" constant="10" id="fGE-EZ-DQm"/>
                                                 <constraint firstItem="uNp-09-JJK" firstAttribute="leading" secondItem="wYC-I0-Hlx" secondAttribute="leading" constant="10" id="iDY-Sy-6gA"/>
                                                 <constraint firstItem="cqi-iv-TBf" firstAttribute="leading" secondItem="wYC-I0-Hlx" secondAttribute="leading" constant="10" id="oIT-KU-hCm"/>
                                             </constraints>
@@ -261,6 +262,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="6oE-Rf-TsP"/>
         <segue reference="tl1-6f-cHv"/>
     </inferredMetricsTieBreakers>
     <resources>

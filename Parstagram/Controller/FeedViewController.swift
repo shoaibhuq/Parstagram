@@ -15,6 +15,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var posts = [PFObject]()
     
+    var refreshControl: UIRefreshControl!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +24,16 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.dataSource = self
         tableView.estimatedRowHeight = 500
         
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
+        tableView.insertSubview(refreshControl, at: 0)
+        
+    }
+    
+    @objc func onRefresh(){
+        tableView.reloadData()
+        refreshControl.endRefreshing()
     }
     
     override func viewDidAppear(_ animated: Bool) {
