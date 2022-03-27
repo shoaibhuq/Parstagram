@@ -14,9 +14,12 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var authorLabel: UILabel!
     
     @IBOutlet weak var commentLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        authorLabel.sizeToFit()
+        commentLabel.sizeToFit()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
