@@ -16,7 +16,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
     
     @IBAction func submitButtonPressed(_ sender: Any) {
@@ -35,7 +35,13 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
             if success {
                 print("saved")
             } else {
-                print("error saving image")
+                let alert = UIAlertController(title: "Error", message: "Could not save image, please try again", preferredStyle: UIAlertController.Style.alert)
+
+                        // add an action (button)
+                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+                        // show the alert
+                        self.present(alert, animated: true, completion: nil)
             }
         }
         
