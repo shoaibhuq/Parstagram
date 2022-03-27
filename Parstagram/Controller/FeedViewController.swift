@@ -17,6 +17,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var refreshControl: UIRefreshControl!
     
+    var numberOfPosts = 20
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,16 +33,11 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-    @objc func onRefresh(){
-        tableView.reloadData()
-        refreshControl.endRefreshing()
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         
         let query = PFQuery(className: "Posts")
         query.includeKey("author")
-        query.limit = 20
+        query.limit = numberOfPosts
         query.findObjectsInBackground{(posts, error) in
             if posts != nil {
                 self.posts = posts!
@@ -48,6 +45,43 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
     }
+    
+    
+    @objc func onRefresh(){
+        tableView.reloadData()
+        refreshControl.endRefreshing()
+    }
+    
+    func loadMorePosts(){
+        let query = PFQuery(className: "Posts")
+        query.includeKey("author")
+        numberOfPosts += 20
+        query.limit = numberOfPosts
+        query.findObjectsInBackground{(posts, error) in
+            if posts != nil {
+                self.posts = posts!
+                self.tableView.reloadData()
+            } else {
+                let alert = UIAlertController(title: "Error", message: "Could not load more tweets", preferredStyle: UIAlertController.Style.alert)
+
+                        // add an action (button)
+                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+                        // show the alert
+                        self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row + 1 == posts.count{
+            loadMorePosts()
+            print("loading more posts")
+        }
+    }
+    
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
