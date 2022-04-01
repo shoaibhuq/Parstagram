@@ -19,7 +19,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var numberOfPosts = 20
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -34,9 +33,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
         let query = PFQuery(className: "Posts")
-        query.includeKey("author")
+        query.includeKeys(["author", "comments", "comments.author"])
         query.limit = numberOfPosts
         query.findObjectsInBackground{(posts, error) in
             if posts != nil {
@@ -44,6 +42,19 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.tableView.reloadData()
             }
         }
+    }
+    
+    
+    @IBAction func logoutButtonPressed(_ sender: Any) {
+        PFUser.logOut()
+        
+        let main = UIStoryboard(name: "Main", bundle: nil)
+        let loginVC = main.instantiateViewController(withIdentifier: "LoginViewController")
+        
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let delegate = windowScene.delegate as? SceneDelegate else {return}
+        
+        delegate.window?.rootViewController = loginVC;
     }
     
     
@@ -57,18 +68,18 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         query.includeKey("author")
         numberOfPosts += 20
         query.limit = numberOfPosts
-        query.findObjectsInBackground{(posts, error) in
-            if posts != nil {
-                self.posts = posts!
+        query.findObjectsInBackground{(newPosts, error) in
+            if newPosts != nil {
+                self.posts = newPosts!
                 self.tableView.reloadData()
             } else {
                 let alert = UIAlertController(title: "Error", message: "Could not load more tweets", preferredStyle: UIAlertController.Style.alert)
-
-                        // add an action (button)
-                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-                        // show the alert
-                        self.present(alert, animated: true, completion: nil)
+                
+                // add an action (button)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                
+                // show the alert
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
@@ -76,43 +87,94 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row + 1 == posts.count{
-            loadMorePosts()
-            print("loading more posts")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+                self.loadMorePosts()
+                print("loading more posts")
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let post = posts[indexPath.row]
+        
+        let comment = PFObject(className: "Comments")
+        comment["content"] = "Testing comment"
+        comment["post"] = post
+        comment["author"] = PFUser.current()
+        
+        post.add(comment, forKey: "comments")
+        post.saveInBackground { success, error in
+            if success{
+                print("Comment saved")
+            }
+            else {
+                print("Error saving comment")
+            }
+        }
+        post.saveInBackground{ (success, error) in
+            
         }
     }
     
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let post = posts[section]
+        let comments = (post["comments"] as? [PFObject]) ?? []
+        
+        return comments.count + 1
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return posts.count
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "postCell") as! PostTableViewCell
         
-        let post = posts[indexPath.row]
-        let user = post["author"] as! PFUser
-        cell.authorLabel.text = user.username
+        let post = posts[indexPath.section]
+        let comments = (post["comments"] as? [PFObject]) ?? []
         
-        cell.commentLabel.text = post["caption"] as? String
         
-        let imageFile = post["image"] as! PFFileObject
-        let urlString = imageFile.url!
-        let url = URL(string: urlString)
-        cell.photoView.af.setImage(withURL: url!)
+        if indexPath.row == 0{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "postCell") as! PostTableViewCell
+
+            let user = post["author"] as! PFUser
+            cell.authorLabel.text = user.username
+            
+            cell.commentLabel.text = post["caption"] as? String
+            
+            let imageFile = post["image"] as! PFFileObject
+            let urlString = imageFile.url!
+            let url = URL(string: urlString)
+            cell.photoView.af.setImage(withURL: url!)
+            
+            return cell
+        } else{
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell") as! CommentTableViewCell
+            
+            print(indexPath.row)
+            let comment = comments[indexPath.row - 1]
+            
+            let user = comment["author"] as! PFUser
+            cell.authorLabel.text = user.username
+            cell.contentLabel.text = comment["content"] as? String
+            
+            return cell
+        }
         
-        return cell
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

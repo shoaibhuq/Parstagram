@@ -17,6 +17,7 @@
 		894CBA6327EE5B2C003DD7D7 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894CBA6227EE5B2C003DD7D7 /* FeedViewController.swift */; };
 		894CBA6527EE633D003DD7D7 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894CBA6427EE633D003DD7D7 /* CameraViewController.swift */; };
 		894CBA6727EE7B23003DD7D7 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894CBA6627EE7B23003DD7D7 /* PostTableViewCell.swift */; };
+		89F8D97A27F7912300A4F9C0 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F8D97927F7912300A4F9C0 /* CommentTableViewCell.swift */; };
 		FF79C83F4046AC67FC611AD0 /* Pods_Parstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 771729B9387E502289F70A7E /* Pods_Parstagram.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,7 @@
 		894CBA6227EE5B2C003DD7D7 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		894CBA6427EE633D003DD7D7 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		894CBA6627EE7B23003DD7D7 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		89F8D97927F7912300A4F9C0 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		C4E660307BF1AA43263F5C97 /* Pods-Parstagram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Parstagram.debug.xcconfig"; path = "Target Support Files/Pods-Parstagram/Pods-Parstagram.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,6 +116,7 @@
 				894CBA6227EE5B2C003DD7D7 /* FeedViewController.swift */,
 				894CBA6427EE633D003DD7D7 /* CameraViewController.swift */,
 				894CBA6627EE7B23003DD7D7 /* PostTableViewCell.swift */,
+				89F8D97927F7912300A4F9C0 /* CommentTableViewCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				894CBA6727EE7B23003DD7D7 /* PostTableViewCell.swift in Sources */,
 				894CBA6127EE5B1A003DD7D7 /* LoginViewController.swift in Sources */,
 				894CBA5F27EE5493003DD7D7 /* Keys.swift in Sources */,
+				89F8D97A27F7912300A4F9C0 /* CommentTableViewCell.swift in Sources */,
 				894CBA6327EE5B2C003DD7D7 /* FeedViewController.swift in Sources */,
 				894CBA4727EE505B003DD7D7 /* AppDelegate.swift in Sources */,
 				894CBA4927EE505B003DD7D7 /* SceneDelegate.swift in Sources */,
