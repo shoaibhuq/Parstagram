@@ -7,11 +7,16 @@
 
 import UIKit
 import Parse
+import MessageInputBar
 
-class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+//MARK: - FeedViewController
+
+class FeedViewController: UIViewController{
     
     
     @IBOutlet weak var tableView: UITableView!
+    
+    let commentBar = MessageInputBar()
     
     var posts = [PFObject]()
     
@@ -30,6 +35,14 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         refreshControl.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
         
+    }
+    
+    override var inputAccessoryView: UIView?{
+        return commentBar
+    }
+    
+    override var canBecomeFirstResponder: Bool{
+        return true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -84,7 +97,11 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    
+}
+
+//MARK: - TableView Configuration
+
+extension FeedViewController:UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row + 1 == posts.count{
             DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
@@ -165,16 +182,4 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
