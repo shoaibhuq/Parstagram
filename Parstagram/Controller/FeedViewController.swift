@@ -88,12 +88,14 @@ class FeedViewController: UIViewController{
     func loadMorePosts(){
         let query = PFQuery(className: "Posts")
         query.includeKeys(["author", "comments", "comments.author"])
-        numberOfPosts += 20
+        numberOfPosts += 10
         query.limit = numberOfPosts
         query.findObjectsInBackground{(newPosts, error) in
             if newPosts != nil {
                 self.posts = newPosts!
-                self.tableView.reloadData()
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             } else {
                 let alert = UIAlertController(title: "Error", message: "Could not load more tweets", preferredStyle: UIAlertController.Style.alert)
                 
